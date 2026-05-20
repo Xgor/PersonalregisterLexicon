@@ -2,7 +2,7 @@
 using System.Linq;
 class Program
 {
-    static EmployeeManager _employeeManager = new EmployeeManager();
+    static readonly EmployeeManager _employeeManager = new EmployeeManager();
      
     static void Main(string[] args)
     {
@@ -23,7 +23,7 @@ class Program
                         _employeeManager.ListEmployees();
                         break;
                     case 'q':
-                    case 'Q':
+                    case 'Q': 
                         programRunning = false;
                         break;
                     default:
@@ -42,20 +42,16 @@ class Program
     static void AddEmployeeCommand()
     {
         Console.Write("What is the new employee's name: ");
-        string? name = Console.ReadLine();
+        string? name = Console.ReadLine(); // Might need some kind of limit for name if you want to change or remove employee later
         ulong salary = 0;
         while (true)
         {
             Console.Write("What is the new employee's salary: ");
-            string salaryStr = Console.ReadLine();
-            if (ulong.TryParse(salaryStr, out salary))
-            {
+            string? salaryStr = Console.ReadLine(); 
+            if (ulong.TryParse(salaryStr, out salary)) // Forces a correct salary
                 break;
-            }
             else
-            {
                 Console.WriteLine("INVALID SALARY, TRY AGAIN");
-            }
         }
         _employeeManager.AddEmployee(name, salary);
     }
@@ -82,7 +78,7 @@ public class EmployeeManager()
 
 public class Employee
 {
-    public Guid Id { get; }
+    public Guid Id { get; } // Not used but could be useful in a more enterprise solution
     public ulong Salary { get; set; }
     public string Name { get; set; }
 
