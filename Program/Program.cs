@@ -3,31 +3,39 @@ using System.Linq;
 class Program
 {
     static EmployeeManager _employeeManager = new EmployeeManager();
-    
+     
     static void Main(string[] args)
     {
-        bool programRunning = true;
-        while (programRunning)
+        try
         {
-            Console.Write("(1) Add new employee (2) List employees (q) Exit program : ");
-            char command = Console.ReadKey().KeyChar; // Reading with this over Console.WriteLine
-            Console.WriteLine(); // Empty line to go to next line
-            switch (command)
+            bool programRunning = true;
+            while (programRunning)
             {
-                case '1':
-                    AddEmployeeCommand();
-                    break;
-                case '2':
-                    _employeeManager.ListEmployees();
-                    break;
-                case 'q':
-                case 'Q':
-                    programRunning = false;
-                    break;
-                default:
-                    Console.WriteLine("Unknown command, try again");
-                    break;
+                Console.Write("(1) Add new employee (2) List employees (q) Exit program : ");
+                char command = Console.ReadKey().KeyChar; // Reading with this over Console.WriteLine
+                Console.WriteLine(); // Empty line to go to next line
+                switch (command)
+                {
+                    case '1':
+                        AddEmployeeCommand();
+                        break;
+                    case '2':
+                        _employeeManager.ListEmployees();
+                        break;
+                    case 'q':
+                    case 'Q':
+                        programRunning = false;
+                        break;
+                    default:
+                        Console.WriteLine("Unknown command, try again");
+                        break;
+                }
             }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 
@@ -59,7 +67,7 @@ class Program
 
 public class EmployeeManager()
 {
-    private List<Employee> employees = new List<Employee>();
+    public List<Employee> employees { get; private set; } = new List<Employee>();
     
     public void AddEmployee(string name, ulong salary)
     { 
