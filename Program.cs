@@ -1,5 +1,5 @@
 ﻿namespace PersonalregisterLexicon;
-
+using System.Linq;
 class Program
 {
     static EmployeeManager _employeeManager = new EmployeeManager();
@@ -53,7 +53,7 @@ class Program
     }
     static void ListEmployeesCommand()
     {
-        
+        _employeeManager.ListEmployees();
     }
 }
 
@@ -68,7 +68,7 @@ public class EmployeeManager()
     
     public void ListEmployees()
     {
-        
+        employees.ForEach(x => Console.WriteLine($"{x.Name}: {x.Salary}"));
     }
 }
 
